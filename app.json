@@ -1,6 +1,6 @@
 {
   "expo": {
-"name": "CalibratorApp",
+    "name": "CalibratorApp",
     "slug": "CalibratorApp",
     "newArchEnabled": true,
     "version": "1.0.0",
@@ -21,6 +21,9 @@
         "INTERNET",
         "com.google.android.gms.permission.AD_ID"
       ],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-7403534919707613~5471818790"
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundColor": "#050608"
@@ -36,34 +39,40 @@
         }
       ],
       [
-"expo-splash-screen",
-  {
-    "image": "./assets/images/splash-icon.png",
-    "imageWidth": 200,
-    "resizeMode": "contain",
-    "backgroundColor": "#050608"
-  }
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#050608"
+        }
       ],
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713", 
-          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
+          "androidAppId": "ca-app-pub-7403534919707613~5471818790",
+          "iosAppId": "ca-app-pub-7403534919707613~5471818790"
         }
       ],
       [
         "expo-build-properties",
         {
           "android": {
-"compileSdkVersion": 35,
-      "targetSdkVersion": 35,
-      "minSdkVersion": 24
-          }  
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "minSdkVersion": 24
+          }
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "71a1c3f3-3615-42f7-a8cb-817aed74c1bb"
+      }
     }
   }
 }

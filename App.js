@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { useEffect } from 'react'; // Added useEffect
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -13,6 +13,11 @@ import BubbleLevelScreen from './src/screens/BubbleLevelScreen';
 import GeneralCalibrateScreen from './src/screens/GeneralCalibrateScreen';
 import SettingsScreen from './src/screens/SettingsScreen';
 import VisualLevelScreen from './src/screens/VisualLevelScreen';
+
+// 2. AD CONFIGURATION
+// Use TestIds.BANNER for development to avoid getting banned.
+// Swap 'TestIds.BANNER' for your real 'Ad Unit ID' (the one with the "/") only for production.
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7403534919707613/XXXXXXXXXX'; 
 
 const Tab = createBottomTabNavigator();
 
@@ -63,13 +68,14 @@ function MyTabs() {
 }
 
 export default function App() {
-  // 2. INITIALIZE ADS ON STARTUP
+  // 3. INITIALIZE ADS ON STARTUP
   useEffect(() => {
     mobileAds()
       .initialize()
       .then(adapterStatuses => {
         console.log('AdMob Initialized Successfully');
-      });
+      })
+      .catch(error => console.log('AdMob Init Error: ', error));
   }, []);
 
   return (
@@ -77,22 +83,23 @@ export default function App() {
       <NavigationContainer>
         <View style={{ flex: 1, backgroundColor: '#050608' }}>
           
-          {/* 3. ACTUAL AD BANNER AT THE TOP */}
+          {/* 4. ACTUAL AD BANNER AT THE TOP */}
           <View style={{ 
-            height: 90, 
+            height: 100, // Slightly taller to account for status bars on some devices
             backgroundColor: '#0A0C10', 
-            justifyContent: 'flex-end', // Aligns ad to bottom of this container
+            justifyContent: 'flex-end',
             alignItems: 'center',
             borderBottomWidth: 1,
             borderBottomColor: '#1F222B',
-            paddingBottom: 5 // Small gap before the app content starts
+            paddingBottom: 5 
           }}>
             <BannerAd
-              unitId={TestIds.BANNER} // Always use TestIds during development
+              unitId={adUnitId} 
               size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
               requestOptions={{
                 requestNonPersonalizedAdsOnly: true,
               }}
+              onAdFailedToLoad={(error) => console.log('Banner Error: ', error)}
             />
           </View>
 
